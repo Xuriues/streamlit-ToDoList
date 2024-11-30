@@ -54,7 +54,7 @@ def add_task():
 
 # Function to mark a task as done
 def mark_task():
-    index = st.number_input("Enter task index to mark as done", min_value=1, max_value=len(currTask), step=1, key="mark_index")
+    index = st.slider("Enter task index to mark as done", min_value=1, max_value=len(currTask), step=1, key="mark_index")
     if st.button("Mark Task as Done"):
         if currTask[index - 1][0] == "X":
             st.warning("This task is already marked as done!")
@@ -63,9 +63,10 @@ def mark_task():
             saveTasks()  # Save updated list
             st.success(f"Task '{currTask[index - 1][1]}' marked as done!")
 
+
 # Function to unmark a task
 def unmark_task():
-    index = st.number_input("Enter task index to unmark", min_value=1, max_value=len(currTask), step=1, key="mark_index")
+    index = st.slider("Enter task index to mark as done", min_value=1, max_value=len(currTask), step=1, key="mark_index")
     if st.button("Undo Completed Task"):
         if currTask[index - 1][0] == "":
             st.warning("This task is already unmarked!")
@@ -76,8 +77,7 @@ def unmark_task():
 
 # Function to remove a task
 def remove_task():
-    index = st.number_input("Enter task index to remove", min_value=1, max_value=len(currTask), step=1, key="remove_index")
-    
+    index = st.slider("Enter task index to mark as done", min_value=1, max_value=len(currTask), step=1, key="mark_index")    
     if st.button("Remove Task"):
         currTask.pop(index - 1)  
         saveTasks()
