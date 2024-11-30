@@ -1,5 +1,6 @@
 import os
 import streamlit as st
+import datetime
 
 # File to store tasks
 filename = "list.txt"
@@ -44,13 +45,14 @@ def display_tasks(array):
 def add_task():
     itemName = st.text_input("Task Name", key="task_name")
     itemPriority = st.selectbox("Priority", ["High", "Medium", "Low"], key="task_priority")
-    itemCompletionDate = st.date_input("Due Date", key="task_due_date")
+    itemCompletionDate = st.date_input("Due Date", key="task_due_date", min_value=datetime.date.today())
     
     if st.button("Add Task"):
         new_task = ["", itemName, itemPriority.capitalize(), itemCompletionDate.strftime('%m-%d-%Y')]
         currTask.append(new_task)  # Add new task to the list
         saveTasks()  # Save to file
         st.success(f"Task '{itemName}' added!")
+
 
 # Function to mark a task as done
 def mark_task():
@@ -82,6 +84,7 @@ def remove_task():
         currTask.pop(index - 1)  
         saveTasks()
         st.success(f"Task at index {index} removed!")
+    loadTasks()
 
 # Function to sort tasks by priority
 def sort_tasks():
